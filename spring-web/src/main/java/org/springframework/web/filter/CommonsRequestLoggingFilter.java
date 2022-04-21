@@ -16,6 +16,8 @@
 
 package org.springframework.web.filter;
 
+import org.apache.commons.logging.Log;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -30,7 +32,7 @@ import javax.servlet.http.HttpServletRequest;
  * @see #setBeforeMessageSuffix
  * @see #setAfterMessagePrefix
  * @see #setAfterMessageSuffix
- * @see org.apache.commons.logging.Log#debug(Object)
+ * @see Log#debug(Object)
  */
 public class CommonsRequestLoggingFilter extends AbstractRequestLoggingFilter {
 

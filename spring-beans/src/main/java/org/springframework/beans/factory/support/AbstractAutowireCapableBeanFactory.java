@@ -90,10 +90,20 @@ import org.springframework.util.StringUtils;
  * Implements the {@link org.springframework.beans.factory.config.AutowireCapableBeanFactory}
  * interface in addition to AbstractBeanFactory's {@link #createBean} method.
  *
+ * 实现默认 bean 创建的抽象 bean 工厂超类，
+ *   具有 {@link RootBeanDefinition} 类指定的全部功能。
+ *   实现 {@link org.springframework.beans.factory.config.AutowireCapableBeanFactory}
+ *   除了 AbstractBeanFactory 的 {@link #createBean} 方法之外的接口。
+ *
  * <p>Provides bean creation (with constructor resolution), property population,
  * wiring (including autowiring), and initialization. Handles runtime bean
  * references, resolves managed collections, calls initialization methods, etc.
  * Supports autowiring constructors, properties by name, and properties by type.
+ *
+ * <p>提供 bean 创建（使用构造函数解析）、属性填充、
+ *   接线（包括自动接线）和初始化。处理运行时 bean
+ *   引用、解析托管集合、调用初始化方法等。
+ *   支持自动装配构造函数、名称属性和类型属性。
  *
  * <p>The main template method to be implemented by subclasses is
  * {@link #resolveDependency(DependencyDescriptor, String, Set, TypeConverter)},
@@ -101,11 +111,23 @@ import org.springframework.util.StringUtils;
  * its bean definitions, matching beans will typically be implemented through such
  * a search. For other factory styles, simplified matching algorithms can be implemented.
  *
+ * <p>子类要实现的主要模板方法是
+ *   {@link #resolveDependency(DependencyDescriptor, String, Set, TypeConverter)},
+ *   用于按类型自动装配。如果是能够搜索的工厂
+ *   它的 bean 定义，匹配的 bean 通常会通过这样的方式实现
+ *   搜索。对于其他工厂风格，可以实现简化的匹配算法。
+ *
  * <p>Note that this class does <i>not</i> assume or implement bean definition
  * registry capabilities. See {@link DefaultListableBeanFactory} for an implementation
  * of the {@link org.springframework.beans.factory.ListableBeanFactory} and
  * {@link BeanDefinitionRegistry} interfaces, which represent the API and SPI
  * view of such a factory, respectively.
+ *
+ * <p>请注意，这个类<i>不<i>假设或实现bean定义
+ *   注册表功能。请参阅 {@link DefaultListableBeanFactory} 了解实现
+ *   {@link org.springframework.beans.factory.ListableBeanFactory} 和
+ *   {@link BeanDefinitionRegistry} 接口，代表 API 和 SPI
+ *   这样一个工厂的视图，分别。
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -148,6 +170,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	/**
 	 * Dependency interfaces to ignore on dependency check and autowire, as Set of
 	 * Class objects. By default, only the BeanFactory interface is ignored.
+	 *
+	 * 在依赖检查和自动装配时忽略的依赖接口，作为 Set
+	 * 类对象。默认情况下，仅忽略 BeanFactory 接口。
 	 */
 	private final Set<Class<?>> ignoredDependencyInterfaces = new HashSet<>();
 
@@ -173,6 +198,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 */
 	public AbstractAutowireCapableBeanFactory() {
 		super();
+		/**
+		 * 忽略依赖接口 BeanNameAware， BeanFactoryAware， BeanClassLoaderAware
+		 */
 		ignoreDependencyInterface(BeanNameAware.class);
 		ignoreDependencyInterface(BeanFactoryAware.class);
 		ignoreDependencyInterface(BeanClassLoaderAware.class);
@@ -272,6 +300,14 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * BeanFactoryAware or ApplicationContext through ApplicationContextAware.
 	 * <p>By default, only the BeanFactoryAware interface is ignored.
 	 * For further types to ignore, invoke this method for each type.
+	 *
+	 * 忽略给定的依赖接口以进行自动装配。
+	 * <p>这通常被应用程序上下文用来注册
+	 * 以其他方式解决的依赖关系，例如 BeanFactory 通过
+	 * BeanFactoryAware 或 ApplicationContext 通过 ApplicationContextAware。
+	 * <p>默认情况下，仅忽略 BeanFactoryAware 接口。
+	 * 要忽略其他类型，请为每种类型调用此方法。
+	 *
 	 * @see org.springframework.beans.factory.BeanFactoryAware
 	 * @see org.springframework.context.ApplicationContextAware
 	 */
@@ -1593,6 +1629,12 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * <p>This implementation excludes properties defined by CGLIB and
 	 * properties whose type matches an ignored dependency type or which
 	 * are defined by an ignored dependency interface.
+	 *
+	 * 确定给定的 bean 属性是否从依赖项检查中排除。
+	 * <p>此实现不包括由 CGLIB 定义的属性和
+	 * 其类型与忽略的依赖类型匹配的属性或
+	 * 由忽略的依赖接口定义。
+	 *
 	 * @param pd the PropertyDescriptor of the bean property
 	 * @return whether the bean property is excluded
 	 * @see #ignoreDependencyType(Class)

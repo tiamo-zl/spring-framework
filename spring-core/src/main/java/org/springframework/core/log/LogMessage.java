@@ -18,6 +18,7 @@ package org.springframework.core.log;
 
 import java.util.function.Supplier;
 
+import org.apache.commons.logging.Log;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
@@ -32,12 +33,12 @@ import org.springframework.util.Assert;
  * @see #of(Supplier)
  * @see #format(String, Object)
  * @see #format(String, Object...)
- * @see org.apache.commons.logging.Log#fatal(Object)
- * @see org.apache.commons.logging.Log#error(Object)
- * @see org.apache.commons.logging.Log#warn(Object)
- * @see org.apache.commons.logging.Log#info(Object)
- * @see org.apache.commons.logging.Log#debug(Object)
- * @see org.apache.commons.logging.Log#trace(Object)
+ * @see Log#fatal(Object)
+ * @see Log#error(Object)
+ * @see Log#warn(Object)
+ * @see Log#info(Object)
+ * @see Log#debug(Object)
+ * @see Log#trace(Object)
  */
 public abstract class LogMessage implements CharSequence {
 

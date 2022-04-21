@@ -53,7 +53,7 @@ public class ResponseStatusExceptionHandler implements WebExceptionHandler {
 	 * <p>Default is no warn logging. Specify this setting to activate warn
 	 * logging into a specific category.
 	 * @since 5.1
-	 * @see org.apache.commons.logging.LogFactory#getLog(String)
+	 * @see LogFactory#getLog(String)
 	 * @see java.util.logging.Logger#getLogger(String)
 	 */
 	public void setWarnLogCategory(String loggerName) {
